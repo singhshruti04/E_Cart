@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+#login views
 def login_view(request):
     next =request.GET.get('next')
     form = LoginForm(request.POST or None)
