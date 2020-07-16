@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static%}
+<html>
+<head>
+	<title>Cart</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'cart/cart.css' %}" media="screen,projection">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">  
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<!-- JS, Popper.js, and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</head>
+<body class="page-body">
+	{% block body %}
+		<header role="banner" style="background-image: url('media/site/download (1).jpeg');">
+            <nav class="navbar navbar-expand-md navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="media/site/20460529-1.png" height="80px" width="100px" alt="Responsive image"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarsExample05" style="font-size:18px;color:black;">
+                    <ul class="navbar-nav ml-auto pl-lg-5 pl-0">
+                       <li class="nav-item">
+                         <a class="nav-link active" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'home' %}" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="{% url 'products_category' 'clothing' %}"  style="color:black;">Fashion</a>
+                            <a class="dropdown-item" href="{% url 'products_category' 'electronics' %}"  style="color:black;">Electronics</a>
+                            <a class="dropdown-item" href="{% url 'products_category' 'stationary' %}"  style="color:black;"> Books &amp; Stationary</a>
+                            <a class="dropdown-item" href="{% url 'products_category' 'home_and_appliances' %}"  style="color:black;">Home&amp; Appliances</a>
+                        </div>
+                        </li> 
+                        <li class="nav-item cta-btn">
+                                  <a href="{% url 'cart_list_views'%}" style="color:#e8e7e7;"><button class="btn btn-danger" style="background-color:#0997ad;border-color:#0997ad;margin-right: 4px;margin-bottom: 4px;"><i class="fas fa-shopping-cart"></i>Cart</button></a>
+                        </li>
+
+                        <li class="nav-item cta-btn">
+                            <button class="btn btn-danger"><a href="{% url 'logout' %}" style="color:#e8e7e7;"><i class="fas fa-power-off"> Logout</i></a></button>
+                        </li>
+                    </ul>
+                  
+                      </div>
+                  </div>
+              </nav>
+      </header> 
+      {% endblock %}
+      {% if messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <ul class="messages">
+                    {% for message in messages %}
+                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+          </div>
+          {% endif %}
+     <div class="container2">         
+     {% if product_list %}
+			{% for product in product_list %}
+			        <!--
+					<li><a href="/Polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+					-->
+          <div class="products-item-div-2">
+						<div class="cart-item-subdiv-1">
+							<img src="media/{{ product.product.image}}" alt="{{ product.name}}">
+						</div>
+            <div class="cart-item-subdiv-2">
+              <h5><a href="{% url 'details' product.product.id %}" style="color:#151414c9;font-weight: bold;">{{ product.product.name }}</a></h5>
+              <p class="cart-subdiv-inner1"><i>{{ product.product.subcategory}}</i></p>
+              {% if product.product.discount_price %}
+                 <span class="products-subdiv-inner1"style="color:blue;font-size:20px;font-weight: bolder;"><i class="fas fa-rupee-sign"><del> {{ product.product.discount_price}}</del></i></span>
+              {% endif %}
+                 <span class="products-subdiv-inner1"style="color:blue;font-size:20px;font-weight: bolder;"><i class="fas fa-rupee-sign">{{ product.product.price}}</i></span></p>
+              <button class="btn btn-info" ><a href="{{product.product.get_add_to_cart_url}}" style="color: white;">Add to Cart</a></button>
+              <button class="btn btn-danger" style="color: white;"><a href="{{product.product.get_remove_from_wishlist_url}}" style="color: white;">Remove</a></button>
+            </div>
+          </div>
+			{% endfor %}
+		{% else %}
+		    <p>No Product are available.</p>
+		{% endif %}
+    </div>
+
+    <footer class="site-footer" role="contentinfo" style="background-color: #162337;color: white;padding-top: 2%">
+      <div class="container">
+        <div class="row mb-10">
+          <div class="col-md-4 mb-5">
+            <h3>About Us</h3>
+            <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus et dolor blanditiis consequuntur ex voluptates perspiciatis omnis unde minima expedita.</p>
+            <ul class="list-unstyled footer-link d-flex footer-social">
+              <li><a href="#" class="p-2"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="#" class="p-2"><i class="fab fa-facebook-square"></i></a></li>
+              <li><a href="#" class="p-2"><i class="fab fa-twitter"></i></a></li>
+              <li><a href="#" class="p-2"><i class="fab fa-linkedin"></i></span></a></li>
+            </ul>
+
+          </div>
+          <div class="col-md-5 mb-5">
+            <div>
+              <h3>Contact Info</h3>
+              <ul class="list-unstyled footer-link">
+                <li class="d-block">
+                  <span class="d-block text-black">Address:</span>
+                  <span>34 Street Name, City Name Here, India</span></li>
+                <li class="d-block"><span class="d-block text-black">Phone:</span><span>+91 1234567891</span></li>
+                <li class="d-block"><span class="d-block text-black">Email:</span><span>info@yourdomain.com</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3 mb-5">
+            <h3>Quick Links</h3>
+            <ul class="list-unstyled footer-link">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">Disclaimers</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-md-center text-left">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+</body>
+</html>
+<!--justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;->
