@@ -76,7 +76,8 @@ def cart_list_views(request):
                 )
             print(order_product)
             return render(request, "cart/cart_list.html",{
-                'product_list':order_product
+                'product_list':order_product,
+                'cart_object':cart
                 })
         else:
             return redirect('empty_cart')

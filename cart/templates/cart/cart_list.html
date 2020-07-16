@@ -116,10 +116,16 @@
             <td>Total Market Price</td>
             <td>10,000</td>
           </tr>
+          {% if cart_object%}
+            <tr>
+              <td>Total Price</td>
+              <td>{{ cart_object.get_total }}</td>
+            </tr>
+          {% else %}
           <tr>
-            <td>Total Price</td>
-            <td>5,500</td>
+            <td colspan="2">No price</td>
           </tr>
+          {% endif %}
           <tr>
             <td>Savings</td>
             <td>4,500</td>

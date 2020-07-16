@@ -57,6 +57,7 @@ class OrderProduct(models.Model):
 	def get_amount_saved(self):
 		return self.get_total_product_discount_price - self.get_total_product_price
 
+
 class ProductCart(models.Model):
 	customer = models.ForeignKey(User, on_delete=models.CASCADE)
 	product = models.ManyToManyField(OrderProduct)
@@ -65,6 +66,12 @@ class ProductCart(models.Model):
 
 	def __str__(self):
 		return self.customer.username
+
+	def get_total(self):
+		total=0
+		for cart_product in self.product.all():
+			total += cart_product.get_total_product_price()
+		return total
 
 	class Meta:
 		ordering = ('order_date',)
