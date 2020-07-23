@@ -52,11 +52,10 @@ class OrderProduct(models.Model):
 		return self.quantity*self.product.price
 
 	def get_total_product_discount_price(self):
-		return self.quantity*self.product.discount_price
-
-	def get_amount_saved(self):
-		return self.get_total_product_discount_price - self.get_total_product_price
-
+		if self.product.discount_price > 0:
+			return self.quantity*self.product.discount_price
+		else:
+			return self.quantity*self.product.price
 
 class ProductCart(models.Model):
 	customer = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -72,6 +71,19 @@ class ProductCart(models.Model):
 		for cart_product in self.product.all():
 			total += cart_product.get_total_product_price()
 		return total
+
+	def get_discount_total(self):
+		total=0
+		for cart_product in self.product.all():
+			total += cart_product.get_total_product_discount_price()
+		return total
+
+	def get_saved(self):
+		return self.get_discount_total() - self.get_total()
+
+	def get_pay_total(self):
+		return 300 + self.get_total()
+
 
 	class Meta:
 		ordering = ('order_date',)

@@ -110,6 +110,8 @@ html {
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	margin-left: 0.5%;
+	padding-left:3%;
+	padding-right: 3%;
 }
 
 .products-div{

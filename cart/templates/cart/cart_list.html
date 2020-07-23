@@ -104,7 +104,7 @@
 		{% endif %}
     </div>
     <div class="container3">
-      <table class="table table-borderless">
+      <table class="table table-borderless" >
         <thead>
           <tr>
             <th>Pricing Details (11 products)</th>
@@ -112,32 +112,32 @@
           </tr>
         </thead>
         <tbody>
+          {% if cart_object %}
           <tr>
             <td>Total Market Price</td>
-            <td>10,000</td>
+            <td><i class="fas fa-rupee-sign">  {{ cart_object.get_discount_total }} </i> </td>
           </tr>
-          {% if cart_object%}
             <tr>
               <td>Total Price</td>
-              <td>{{ cart_object.get_total }}</td>
+              <td><i class="fas fa-rupee-sign">  {{ cart_object.get_total }}</i></td>
+            </tr>
+            <tr>
+              <td>Savings</td>
+              <td><i class="fas fa-minus-square"> <i class="fas fa-rupee-sign">  {{ cart_object.get_saved }}</i></i></td>
+            </tr>
+            <tr>
+              <td>Service Tax </td>
+              <td><i class="fas fa-rupee-sign"> 300</i></td>
+            </tr>
+            <tr style="border: 1px solid #c3c3c3;}">
+              <td>Total(inclusive GST) </td>
+              <td><i class="fas fa-rupee-sign">  {{cart_object.get_pay_total}}</i></td>
             </tr>
           {% else %}
           <tr>
             <td colspan="2">No price</td>
           </tr>
           {% endif %}
-          <tr>
-            <td>Savings</td>
-            <td>4,500</td>
-          </tr>
-          <tr>
-            <td>Service Tax </td>
-            <td>300</td>
-          </tr>
-           <tr style="border: 1px solid #c3c3c3;}">
-            <td>Total(inclusive GST) </td>
-            <td>5,800</td>
-          </tr>
           <tr>
             <td></td>
             <td><button class="btn btn-primary"><a href="{{product.product.get_remove_from_cart_url}}" style="color: white;">Proceed to PAY</a></button></td>
