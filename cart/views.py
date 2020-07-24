@@ -197,6 +197,10 @@ def empty_cart(request):
     return render(request, "cart/empty_cart.html", {})
 
 @login_required
+def checkout(request):
+    return render(request, "cart/Checkout.html", {})
+
+@login_required
 def empty_wishlist(request):
     return render(request, "cart/empty_wishlist.html", {})
 

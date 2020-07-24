@@ -65,7 +65,7 @@ class ProductCart(models.Model):
 
 	def __str__(self):
 		return self.customer.username
-
+		
 	def get_total(self):
 		total=0
 		for cart_product in self.product.all():
@@ -93,7 +93,7 @@ class ListedProduct(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return f"{self.product.name}"
+		return f"{ self.product.name }"
 
 class Wishlist(models.Model):
 	customer = models.ForeignKey(User, on_delete=models.CASCADE)
