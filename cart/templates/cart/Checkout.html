@@ -57,16 +57,6 @@
       <div class='container2'>
         <div style="background-color:white;padding:3%;margin:2%;border: 1px solid #c3c3c3d6;">
         <form>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputPassword4">Password</label>
-                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-              </div>
-            </div>
             <div class="form-group">
               <label for="inputAddress">Address</label>
               <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
@@ -76,10 +66,13 @@
               <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
-              </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">Country</label>
+                    <select id="inputState" class="form-control">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
               <div class="form-group col-md-4">
                 <label for="inputState">State</label>
                 <select id="inputState" class="form-control">
@@ -133,10 +126,6 @@
                       <td>Total(inclusive GST) </td>
                       <td><i class="fas fa-rupee-sign">  {{cart_object.get_pay_total}}</i></td>
                     </tr>
-                  {% else %}
-                  <tr>
-                    <td colspan="2">No price</td>
-                  </tr>
                   {% endif %}
                 </tbody>
         
